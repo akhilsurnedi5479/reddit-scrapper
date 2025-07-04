@@ -1,0 +1,932 @@
+title,score,id,url,num_comments,created_utc,selftext
+Sunday Daily Thread: What's everyone working on this week?,2,1ln12ce,https://www.reddit.com/r/Python/comments/1ln12ce/sunday_daily_thread_whats_everyone_working_on/,9,1751155234.0,"# Weekly Thread: What's Everyone Working On This Week? 🛠️
+
+Hello /r/Python! It's time to share what you've been working on! Whether it's a work-in-progress, a completed masterpiece, or just a rough idea, let us know what you're up to!
+
+## How it Works:
+
+1. **Show & Tell**: Share your current projects, completed works, or future ideas.
+2. **Discuss**: Get feedback, find collaborators, or just chat about your project.
+3. **Inspire**: Your project might inspire someone else, just as you might get inspired here.
+
+## Guidelines:
+
+* Feel free to include as many details as you'd like. Code snippets, screenshots, and links are all welcome.
+* Whether it's your job, your hobby, or your passion project, all Python-related work is welcome here.
+
+## Example Shares:
+
+1. **Machine Learning Model**: Working on a ML model to predict stock prices. Just cracked a 90% accuracy rate!
+2. **Web Scraping**: Built a script to scrape and analyze news articles. It's helped me understand media bias better.
+3. **Automation**: Automated my home lighting with Python and Raspberry Pi. My life has never been easier!
+
+Let's build and grow together! Share your journey and learn from others. Happy coding! 🌟"
+Friday Daily Thread: r/Python Meta and Free-Talk Fridays,1,1lr4qhi,https://www.reddit.com/r/Python/comments/1lr4qhi/friday_daily_thread_rpython_meta_and_freetalk/,1,1751587251.0,"# Weekly Thread: Meta Discussions and Free Talk Friday 🎙️
+
+Welcome to Free Talk Friday on /r/Python! This is the place to discuss the r/Python community (meta discussions), Python news, projects, or anything else Python-related!
+
+## How it Works:
+
+1. **Open Mic**: Share your thoughts, questions, or anything you'd like related to Python or the community.
+2. **Community Pulse**: Discuss what you feel is working well or what could be improved in the /r/python community.
+3. **News & Updates**: Keep up-to-date with the latest in Python and share any news you find interesting.
+
+## Guidelines:
+
+* All topics should be related to Python or the /r/python community.
+* Be respectful and follow Reddit's [Code of Conduct](https://www.redditinc.com/policies/content-policy).
+
+## Example Topics:
+
+1. **New Python Release**: What do you think about the new features in Python 3.11?
+2. **Community Events**: Any Python meetups or webinars coming up?
+3. **Learning Resources**: Found a great Python tutorial? Share it here!
+4. **Job Market**: How has Python impacted your career?
+5. **Hot Takes**: Got a controversial Python opinion? Let's hear it!
+6. **Community Ideas**: Something you'd like to see us do? tell us.
+
+Let's keep the conversation going. Happy discussing! 🌟"
+Django devs: Your app is probably slow because of these 5 mistakes (with fixes),104,1lqly55,https://www.reddit.com/r/Python/comments/1lqly55/django_devs_your_app_is_probably_slow_because_of/,30,1751537744.0,"Just helped a client reduce their Django API response times from 3.2 seconds to 320ms. After optimizing dozens of Django apps, I keep seeing the same performance killers over and over.
+
+**The 5 biggest Django performance mistakes:**
+
+1. **N+1 queries** \- Your templates are hitting the database for every item in a loop
+2. **Missing database indexes** \- Queries are fast with 1K records, crawl at 100K
+3. **Over-fetching data** \- Loading entire objects when you only need 2 fields
+4. **No caching strategy** \- Recalculating expensive operations on every request
+5. **Suboptimal settings** \- Using SQLite in production, DEBUG=True, no connection pooling
+
+**Example that kills most Django apps:**
+
+    # This innocent code generates 201 database queries for 100 articles
+    def get_articles(request):
+        articles = Article.objects.all()  
+    # 1 query
+        return render(request, 'articles.html', {'articles': articles})
+
+    html
+    <!-- In template - this hits the DB for EVERY article -->
+    {% for article in articles %}
+        <h2>{{ article.title }}</h2>
+        <p>By {{ article.author.name }}</p>  
+    <!-- Query per article! -->
+        <p>Category: {{ article.category.name }}</p>  
+    <!-- Another query! -->
+    {% endfor %}
+
+**The fix:**
+
+    #Now it's only 3 queries total, regardless of article count
+    def get_articles(request):
+        articles = Article.objects.select_related('author', 'category')
+        return render(request, 'articles.html', {'articles': articles})
+
+**Real impact:** I've seen this single change reduce page load times from 3+ seconds to under 200ms.
+
+Most Django performance issues aren't the framework's fault - they're predictable mistakes that are easy to fix once you know what to look for.
+
+I wrote up all 5 mistakes with detailed fixes and real performance numbers [here](https://python.plainenglish.io/why-your-django-app-is-slow-and-5-ways-to-fix-it-b28b7b3b568a) if anyone wants the complete breakdown.
+
+What Django performance issues have burned you? Always curious to hear war stories from the trenches."
+What is Jython and is it still relevant?,7,1lr4o0b,https://www.reddit.com/r/Python/comments/1lr4o0b/what_is_jython_and_is_it_still_relevant/,19,1751587049.0,"Never seen it before until I opened up this book that was published in 2010. 
+Is it still relevant and what has been created with it?
+
+The book is called
+Introduction to computing and programming in Python- a multimedia approach. 2nd edition
+Mark Guzdial , Barbara Ericson"
+The logging module is from 2002. Here's how to use it in 2025,628,1lq2zq0,https://www.reddit.com/r/Python/comments/1lq2zq0/the_logging_module_is_from_2002_heres_how_to_use/,42,1751479818.0,"The logging module is powerful, but I noticed a lot of older tutorials teach outdated patterns you shouldn't use. So [I put together an article](https://www.dash0.com/guides/logging-in-python) that focuses on understanding the modern picture of Python logging. 
+
+It covers structured JSON output, centralizing logging configuration, using contextvars to automatically enrich your logs with request-specific data, and other useful patterns for modern observability needs.
+
+If there's anything I missed or could improve, please let me know!"
+One simple way to run tests with random input in Pytest.,3,1lqy5fn,https://www.reddit.com/r/Python/comments/1lqy5fn/one_simple_way_to_run_tests_with_random_input_in/,4,1751569952.0,"There are many ways to do it. Here's a simple one. I keep it short.
+
+[Test With Random Input in Python](https://www.foundationsafety.com/random-tests)"
+TurtleSC - Shortcuts for quickly coding turtle.py art,2,1lqv6nw,https://www.reddit.com/r/Python/comments/1lqv6nw/turtlesc_shortcuts_for_quickly_coding_turtlepy_art/,0,1751562931.0,"The TurtleSC package for providing shortcut functions for turtle.py to help in quick experiments. https://github.com/asweigart/turtlesc
+
+Full blog post and reference: https://inventwithpython.com/blog/turtlesc-package.html
+
+    pip install turtlesc
+
+**What My Project Does**
+
+Provides a shortcut language instead of typing out full turtle code. For example, this turtle.py code:
+
+    from turtle import *
+    from random import *
+
+    colors = ['red', 'orange', 'yellow', 'blue', 'green', 'purple']
+
+    speed('fastest')
+    pensize(3)
+    bgcolor('black')
+    for i in range(300):
+        pencolor(choice(colors))
+        forward(i)
+        left(91)
+    hideturtle()
+    done()
+
+Can be written as:
+
+    from turtlesc import *
+    from random import *
+
+    colors = ['red', 'orange', 'yellow', 'blue', 'green', 'purple']
+
+    sc('spd fastest, ps 3, bc black')
+    for i in range(300):
+        sc(f'pc {choice(colors)}, f {i}, l 91')
+    sc('hide,done')
+
+You can also convert from the shortcut langauge to regular turtle.py function calls:
+
+    >>> from turtlesc import *
+    >>> scs('bf, f 100, r 90, f 100, r 90, ef')
+    'begin_fill()\nforward(100)\nright(90)\nforward(100)\nright(90)\nend_fill()\n'
+
+There's also an interactive etch-a-sketch mode so you can use keypresses to draw, and then export the turtle.py function calls to recreate it. I'll be using this to create ""impossible objects"" as turtle code: https://im-possible.info/english/library/bw/bw1.html
+
+    >>> from turtlesc import *
+    >>> interactive()  # Use cardinal direction style (the default): WASD moves up/down, left/right
+    >>> interactive('turn')  # WASD moves forward/backward, turn counterclockwise/clockwise
+    >>> interactive('isometric')  # WASD moves up/down, and the AD, QE keys move along a 30 degree isometric plane
+
+**Target Audience**
+
+Digital artists, or instructors looking for ways to teach programming using turtle.py.
+
+**Comparison**
+
+There's nothing else like it, but it's aligned with other Python turtle work by  Marie Roald and Yngve Mardal Moe: https://pyvideo.org/pycon-us-2023/the-creative-art-of-algorithmic-embroidery.html"
+The one FastAPI boilerplate to rule them all,86,1lq5ccm,https://www.reddit.com/r/Python/comments/1lq5ccm/the_one_fastapi_boilerplate_to_rule_them_all/,13,1751485457.0,"Hey, guys, for anyone who might benefit (or would like to contribute - good starting point for newbies)
+
+For about 2 years I've been developing this boilerplate (with a lot of help from the community - 20 contributors) and it's pretty mature now (used in prod by many). Latest news was the addition of CRUDAdmin as an admin panel, plus a brand new documentation to help people use it and understand design decisions.
+
+* Github: [https://github.com/benavlabs/FastAPI-boilerplate](https://github.com/benavlabs/FastAPI-boilerplate)
+* Docs: [https://benavlabs.github.io/FastAPI-boilerplate/](https://benavlabs.github.io/FastAPI-boilerplate/)
+
+  
+Main features:
+
+* Pydantic V2 and SQLAlchemy 2.0 (fully async)
+* User authentication with JWT (and cookie based refresh token)
+* ARQ integration for task queue (way simpler than celery, but really powerful)
+* Builtin cache and rate-limiting with redis
+* Several deployment specific features (docs behind authentication and hidden based on the environment)
+* NGINX for Reverse Proxy and Load Balancing
+* Easy and powerful db interaction (FastCRUD)
+
+
+
+Would love to hear your opinions and what could be improved. We used to have tens of issues, now it's down to just a few (phew), but I'd love to see new ones coming.
+
+*Note: this boilerplate works really well for microservices or small applications, but for bigger ones I'd use a DDD monolith. It's a great starting point though.*"
+"A Python-Powered Desktop App Framework Using HTML, CSS & Python (Alpha)",5,1lqi4xa,https://www.reddit.com/r/Python/comments/1lqi4xa/a_pythonpowered_desktop_app_framework_using_html/,3,1751522574.0,"Repo Link: [https://github.com/itzmetanjim/py-positron](https://github.com/itzmetanjim/py-positron) 
+
+# What my project does
+
+PyPositron is a lightweight UI framework that lets you build native desktop apps using the web stack you already know—HTML, CSS & JS—powered by Python. Under the hood it leverages `pywebview`, but gives you full access to the DOM and browser APIs from Python. **Currently in Alpha stage**
+
+# Target Audience
+
+* Anyone making a desktop app with Python.
+* Developers who know HTML/CSS and Python and want to make desktop apps.
+* People who know Python well and want to make a desktop app, and wants to focus more on the backend logic than the UI
+* People who want a simple UI framework that is easy to learn.
+* Anyone tired of Tkinter’s ancient look or Qt's verbosity
+
+# 🤔 Why Choose PyPositron?
+
+* **Familiar tools:** No new “proprietary UI language”—just standard HTML/CSS (which is powerful, someone made Minecraft using only CSS ).
+* **Use any web framework:** All frontend web frameworks (Bootstrap,Tailwind,Materialize,Bulma CSS, and even ones that use JS) are available.
+* **AI-friendly:** Simply ask your favorite AI to “generate a login form in HTML/CSS/JS” and plug it right in.
+* **Lightweight:** Spins up on your system’s existing browser engine—no huge runtimes bundled with every app.
+
+# Comparision
+
+|Feature|PyPositron|Electron.js|PyQt|
+|:-|:-|:-|:-|
+|Language|Python|JavaScript, C/C++ or backend JS frameworks|Python|
+|UI framework|Any frontend HTML/CSS/JS framework|Any frontend HTML/CSS/JS framework|Qt Widgets|
+|Packaging|PyInstaller, etc|Electron Builder|PyInstaller, etc.|
+|Performance|Lightweight|Heavyweight|Lightweight|
+|Animations|CSS animations or frameworks|CSS animations or frameworks|Manual|
+|Theming|CSS or frameworks|CSS or frameworks|QSS (PyQt version of CSS)|
+|Learning difficulty (subjective)|Very easy|Easy|Hard|
+
+# 🔧Features
+
+* Build desktop apps using HTML and CSS.
+* Use Python for backend and frontend logic. (with support for both Python and JS)
+* Use any HTML/CSS framework (like Bootstrap, Tailwind, etc.) for your UI.
+* Use any HTML builder UI for your app (like Bootstrap Studio, Pinegrow, etc) if you are that lazy.
+* Use JS for compatibility with existing HTML/CSS frameworks.
+* Use AI tools for generating your UI without needing proprietary system prompts- simply tell it to generate HTML/CSS/JS UI for your app.
+* Virtual environment support.
+* Efficient installer creation for easy distribution (that does not exist yet).
+
+# 📖 Learn More & Contribute
+
+* **Docs & Tutorial:** [https://pypositron.github.io/Home/](https://pypositron.github.io/Home/)
+* **Wiki:** [https://github.com/itzmetanjim/py-positron/wiki](https://github.com/itzmetanjim/py-positron/wiki) or [https://pypositron.github.io/Home](https://pypositron.github.io/Home)
+
+**Alpha-stage project:** Feedback, issues, and PRs are very welcome! Let me know what you build. 🚀"
+MongoDB Schema Validation: A Practical Guide with Examples,1,1lqs9qs,https://www.reddit.com/r/Python/comments/1lqs9qs/mongodb_schema_validation_a_practical_guide_with/,0,1751555993.0,Good read on MongoDB back to basics: [https://www.datacamp.com/tutorial/mongodb-schema-validation](https://www.datacamp.com/tutorial/mongodb-schema-validation)
+Guide: How to Benchmark Python Code?,0,1lqrmyi,https://www.reddit.com/r/Python/comments/1lqrmyi/guide_how_to_benchmark_python_code/,0,1751554472.0,[https://codspeed.io/docs/guides/how-to-benchmark-python-code](https://codspeed.io/docs/guides/how-to-benchmark-python-code)
+"Thursday Daily Thread: Python Careers, Courses, and Furthering Education!",2,1lqbbv9,https://www.reddit.com/r/Python/comments/1lqbbv9/thursday_daily_thread_python_careers_courses_and/,0,1751500830.0,"# Weekly Thread: Professional Use, Jobs, and Education 🏢
+
+Welcome to this week's discussion on Python in the professional world! This is your spot to talk about job hunting, career growth, and educational resources in Python. Please note, this thread is **not for recruitment**.
+
+---
+
+## How it Works:
+
+1. **Career Talk**: Discuss using Python in your job, or the job market for Python roles.
+2. **Education Q&A**: Ask or answer questions about Python courses, certifications, and educational resources.
+3. **Workplace Chat**: Share your experiences, challenges, or success stories about using Python professionally.
+
+---
+
+## Guidelines:
+
+- This thread is **not for recruitment**. For job postings, please see r/PythonJobs or the recruitment thread in the sidebar.
+- Keep discussions relevant to Python in the professional and educational context.
+  
+---
+
+## Example Topics:
+
+1. **Career Paths**: What kinds of roles are out there for Python developers?
+2. **Certifications**: Are Python certifications worth it?
+3. **Course Recommendations**: Any good advanced Python courses to recommend?
+4. **Workplace Tools**: What Python libraries are indispensable in your professional work?
+5. **Interview Tips**: What types of Python questions are commonly asked in interviews?
+
+---
+
+Let's help each other grow in our careers and education. Happy discussing! 🌟"
+async_rithmic: a fully async Rithmic gateway for algorithmic trading,10,1lpvht5,https://www.reddit.com/r/Python/comments/1lpvht5/async_rithmic_a_fully_async_rithmic_gateway_for/,1,1751461906.0,"# What My Project Does
+
+`async_rithmic` is an open-source Python SDK that brings fully asynchronous access to the [Rithmic API](https://www.rithmic.com/) (a popular low-latency gateway for futures market data and trading).
+
+With `async_rithmic`, you can:
+
+* Place, modify, and cancel orders in a modern, non-blocking way.
+* Easily subscribe to market data and build real-time event-driven trading systems.
+* Retrieve historical market data
+
+# Links
+
+* [GitHub Project link](https://github.com/rundef/async_rithmic)
+* [Documentation link](https://async-rithmic.readthedocs.io/en/latest/)
+
+# Why I Built It
+
+The only other Python wrapper I'm aware of is outdated, unmaintained and has a flawed architecture. I needed something:
+
+* Fully async (for use with asyncio and fast, concurrent pipelines)
+* Open source, with a clean, idiomatic API
+* Easy to use in an event-driven trading system
+
+After building several bots and backtesting platforms, I decided to open-source my own implementation to help others save time and avoid re-inventing the wheel.
+
+# Target audience
+
+* Python developers working with low-latency, event-driven trading or market data pipelines
+* Quantitative researchers and algo traders who want fast access to Rithmic feeds for futures trading
+* Anyone building their own backtesting or trading framework with a focus on modern async patterns"
+Cool FNaF Python Programm,0,1lqku3g,https://www.reddit.com/r/Python/comments/1lqku3g/cool_fnaf_python_programm/,0,1751533351.0,I programmed a port from Programm from FNaF Sotm in Python [https://www.mediafire.com/file/0zqmhstsm1ksdtf/H.E.L.P.E.R.py/file](https://www.mediafire.com/file/0zqmhstsm1ksdtf/H.E.L.P.E.R.py/file)
+Looking for beginning programmers (to chat with),2,1lq3syz,https://www.reddit.com/r/Python/comments/1lq3syz/looking_for_beginning_programmers_to_chat_with/,6,1751481744.0,"Hi, is anyone interested in chatting with other beginners about progress and motivating each other to achieve their dreams? If your answer is yes, please leave your discord down below in the comments... The only requirement is to know English at least at minimum level whete you can talk to other people. I would like to make it enjoyable to everyone and different languages that only one understands are a little obstacle in good communication. Also, if you have any questions also write them in comments - I want some feedback you know.
+Have a wonderful day, everyone!
+PS: I will post my nickname soon here."
+Co Debug AI - VS Code extension for enhanced Go debugging context (seeking feedback),0,1lqip7x,https://www.reddit.com/r/Python/comments/1lqip7x/co_debug_ai_vs_code_extension_for_enhanced_go/,0,1751524734.0,"I built a VS Code extension to fix a common Go debugging issue: when inspecting variables with Delve, structs often show up as `{...}` instead of their full contents.
+
+**What it does:**
+
+* Captures complete variable state during Delve debug sessions
+* Outputs structured context files ready for AI tools (Copilot, ChatGPT, etc.)
+* Offers multiple context levels (quick summary, deep dive, full analysis)
+* Generates readable markdown instead of manual copy-pasting
+
+**Status:**
+
+* Fully working for Go with Delve
+* Python and JavaScript support in progress
+* Example output includes full variable trees, call stacks, and optional error context
+
+Looking for feedback or suggestions on improving the format or usability.
+
+**Link:** [VS Code Marketplace – Co Debugger AI](https://marketplace.visualstudio.com/items?itemName=nandamyashwanth.go-debugger-ai)"
+Released my first advanced project please critique me!,0,1lq88of,https://www.reddit.com/r/Python/comments/1lq88of/released_my_first_advanced_project_please/,6,1751492596.0,"The library is designed to take types (e.g. Binary Trees, or custom ones), and adapt them to a certain layout you desire, and visualize it!
+
+  
+The target audience is people looking to explore ways to visualize their data in a pythonic manner.
+
+  
+I haven't really found anything like this to compare it to because I thought of doing this while sitting on the toilet. Please critique me and find issues I am willing to fix everything up.
+
+  
+[https://github.com/mileaage/TypeToGraph](https://github.com/mileaage/TypeToGraph)"
+This simple CPU benchmark tool is my first Python project.,4,1lpvh4u,https://www.reddit.com/r/Python/comments/1lpvh4u/this_simple_cpu_benchmark_tool_is_my_first_python/,4,1751461857.0,"Hey all, I just joined this community and decided to share my first actual project! It is a benchmark tool that creates a CPU score, also dependant upon read/write speeds of the RAM, by calculating prime numbers. Link to the Github repository: [https://github.com/epicracer7490/PyMark/blob/main/README.md](https://github.com/epicracer7490/PyMark/blob/main/README.md)
+
+It's just a fun hobby project, made in a few hours. Feel free to share your results!
+
+It can be unaccurate because, unlike Geekbench etc. it runs single-core and is dependant on Pythons CPU usage priority. Here's my result: Intel i7-12650H, CPU SCORE = 4514.82 (Length: 7, Count: 415991)"
+Making a Simple HTTP Server with Asyncio Protocols,32,1lpcaec,https://www.reddit.com/r/Python/comments/1lpcaec/making_a_simple_http_server_with_asyncio_protocols/,1,1751401204.0,"Hey,
+
+If you're curious about how Asyncio Protocols work (and how you they can be used to build a super simple HTTP server) check out this article: [https://jacobpadilla.com/articles/asyncio-protocols](https://jacobpadilla.com/articles/asyncio-protocols)"
+Best alternatives to Django?,69,1lp3r3j,https://www.reddit.com/r/Python/comments/1lp3r3j/best_alternatives_to_django/,64,1751381689.0,"Are there other comprehensive alternatives to Django that allow for near plug and play use with lots of features that you personally think is better?
+
+I wouldn't consider alternatives such as Flask viable for bigger solo projects due to a lack of builtin features unless the project necessitates it."
+pyfiq -- Minimal Redis-backed FIFO queues for Python,16,1lpfkei,https://www.reddit.com/r/Python/comments/1lpfkei/pyfiq_minimal_redisbacked_fifo_queues_for_python/,6,1751409178.0,"**What My Project Does**
+
+pyfiq is a minimal Redis-backed FIFO task queue for Python. It lets you decorate functions with \`@fifo(...)\`, and they'll be queued for execution in strict order processed by threaded background workers utilizing Redis BLPOP.
+
+It's for I/O-bound tasks like HTTP requests, webhook dispatching, or syncing with third-party APIs-- especially when execution order matters, but you don't want the complexity of Celery or external workers.
+
+  
+**This project is for:**
+
+* Developers writing code for integrating with external systems
+* People who want simple, ordered background task execution
+* Anyone who don't like Celery, AWS Lambda, etc, for handling asynchronous processing
+
+**Comparison to Existing Solutions**  
+  
+**Unlike**:
+
+* Celery, which requires brokers, workers, and doesn't preserve ordering by default 
+* AWS Lambda queues, which don't guarantee FIFO unless using with SQS FIFO + extra setup
+
+**pyfiq is:**
+
+* Embedded: runs in the app process
+* Order-preserving: one queue, multiple consumers, with strict FIFO
+* Zero-config: no services to orchestrate
+
+It's designed to be very simple, and only provide ordered execution of tasks. The code is rudimentary right now, and there's a lot of room for improvement.
+
+**Background**
+
+I'm working on an event-driven sync mechanism, and needed something to offload sync logic in the background, reliably and in-order. I could've used Celery with SQS, or Lambda, but both were clunky and the available Celery doesn't guarantee execution order.
+
+So I wrote this, and developing on it to solve the problem at hand. Feedback is super welcome--and I'd appreciate thoughts on whether others run into this same ""Simple FIFO"" need.
+
+MIT licensed. Try it if you dare:
+
+[https://github.com/rbw/pyfiq](https://github.com/rbw/pyfiq)"
+PSF site backend written in PHP,0,1lq8gh7,https://www.reddit.com/r/Python/comments/1lq8gh7/psf_site_backend_written_in_php/,5,1751493144.0,"I just found this whilst logging in to the PSF site to declare my intentions to vote in the upcoming elections. It is wrong?. I guess not.  But i wasn't expecting to see the URL having .php in it. 
+
+"
+"Jupyter Ai , is anyone using it on their notebooks?",0,1lq1k2f,https://www.reddit.com/r/Python/comments/1lq1k2f/jupyter_ai_is_anyone_using_it_on_their_notebooks/,0,1751476454.0,Are you guys using Ai features to code inside your jupyter notebooks like jupyternaut? Or using copilot in VScode/Cursor in the notebook mode ??
+Simple beginners guide,5,1lphzws,https://www.reddit.com/r/Python/comments/1lphzws/simple_beginners_guide/,2,1751415855.0,"Python-Tutorial-2025.vercel.app      
+
+
+It's still a work in progress as I intend to continue to add to it as I learn. I tried to make it educational while keeping things simple for beginners.  Hope it helps someone.
+
+"
+Are there any python tutorials that get to the point and aren’t stupidly simple?,0,1lq1ggd,https://www.reddit.com/r/Python/comments/1lq1ggd/are_there_any_python_tutorials_that_get_to_the/,14,1751476223.0,"I wanna learn how to code in python, but a lot of tutorials are like 5 hours long, and they talk so slowly and they show you the simplest stuff, like multiplying numbers. I want a tutorial which gets to the point and is easy to understand but which doesn’t baby you to the point it’s boring. 
+
+"
+500× faster: Four different ways to speed up your code,0,1lq3ejm,https://www.reddit.com/r/Python/comments/1lq3ejm/500_faster_four_different_ways_to_speed_up_your/,14,1751480792.0,"If your Python code is slow and needs to be *fast*, there are many
+different approaches you can take, from parallelism to writing a
+compiled extension. But if you just stick to one approach, it’s easy to
+miss potential speedups, and end up with code that is much slower than
+it could be.
+
+To make sure you’re not forgetting potential sources of speed, it’s
+useful to think in terms of *practices*. Each practice:
+
+-   Speeds up your code in its own unique way.
+-   Involves distinct skills and knowledge.
+-   Can be applied on its own.
+-   Can also be applied together with other practices for even more
+    speed.
+
+To make this more concrete, I wrote an article where I work through an example
+where I will apply multiple practices. Specifically I demonstrate the practices of:
+
+1.  **Efficiency:** Getting rid of wasteful or repetitive calculations.
+2.  **Compilation:** Using a compiled language, and potentially working around the
+    compiler’s limitations.
+3.  **Parallelism:** Using multiple CPU cores.
+4.  **Process:** Using development processes that result in faster code.
+
+You’ll see that:
+
+-   Applying just the Practice of Efficiency to this problem gave me a
+    2.5× speed-up.
+-   Applying just the Practice of Compilation gave me a 13× speed-up.
+-   When I applied both, the result was even faster.
+-   Following up with the Practice of Parallelism gave even more of a
+    speedup, for a final speed up of 500×.
+
+[You can read the full article here, the above is just the intro.](https://pythonspeed.com/articles/different-ways-speed/)"
+How I Used ChatGPT + Python to Build a Functional Web Scraper in 2025,0,1lq3igj,https://www.reddit.com/r/Python/comments/1lq3igj/how_i_used_chatgpt_python_to_build_a_functional/,1,1751481050.0,"I recently tried building a web scraper with the help of ChatGPT and thought it might be helpful to share how it went, especially for anyone curious about using AI tools alongside Python for scraping tasks.
+
+ChatGPT was great at generating Python scripts using requests and BeautifulSoup. I used it to write the initial code, extract data like product titles and prices, and even add CSV export and pagination logic. It also helped fine-tune the script based on follow-up prompts when something didn’t work as expected.
+
+But once I hit pages that used JavaScript or had CAPTCHAs, things got more complicated. Since ChatGPT doesn’t handle those challenges directly, I used Crawlbase’s Crawling API to take care of JS rendering and proxy rotation. This made the script much more reliable on sites like Walmart.
+
+To be fair, Crawlbase isn’t the only option. Similar tools include:
+
+* ScraperAPI
+* Bright Data
+* Zyte (formerly Scrapy Cloud) Each offers ways to deal with bot detection, rate limiting, and dynamic content.
+
+If you’re using ChatGPT for scraping:
+
+* Be specific in your prompts (mention libraries, output formats, and CSS selectors)
+* Always test and clean up the code it gives
+* Combine it with a scraping infrastructure if you're targeting modern websites
+
+It was an interesting mix of automation and manual tuning, and I learned a lot through trial and error. If you're working on something similar or using other tools to improve your workflow, would love to hear about it. Here’s the full breakdown for those interested: [How to Scrape Websites with ChatGPT in 2025](https://crawlbase.com/blog/chatgpt-web-scraping/?utm_source=Reddit_Feb&utm_campaign=Reddit_Feb)
+
+Open to feedback or better tool recommendations, especially if others have been working on similar scraping workflows using Python and LLMs."
+Code Sharing and Execution Platform Security Risks?,1,1lpflqb,https://www.reddit.com/r/Python/comments/1lpflqb/code_sharing_and_execution_platform_security_risks/,2,1751409276.0,"Currently working on a Python code sharing and execution platform aimed at letting users rapidly prototype with different libraries, frameworks, and external APIs. I am aware of the general security concerns and the necessity of running code in isolation (I am using GCP containers and Gvisor).  Some concerns I'm thinking of:   
+  
+\- crypto mining    
+\- network allowances leading to malicious code on external sites  
+\- container reuse  
+  
+Wondering what everyones thoughts are on these concerns and if there are specific security measures I should be implementing beyond isolation and code-parsing for standard attacks?"
+"After 10 years of self taught Python, I built a local AI Coding assistant.",11,1lp3k2h,https://www.reddit.com/r/Python/comments/1lp3k2h/after_10_years_of_self_taught_python_i_built_a/,0,1751381207.0,"[https://imgur.com/a/JYdNNfc](https://imgur.com/a/JYdNNfc) \- AvAkin in action
+
+Hi everyone,
+
+After a long journey of teaching myself Python while working as an electrician, I finally decided to go all-in on software development. I built the tool I always wanted: AvA, a desktop AI assistant that can answer questions about a codebase locally. It can give suggestions on the code base I'm actively working on which is huge for my learning process. I'm currently a freelance python developer so I needed to quickly learn a wide variety of programming concepts. Its helped me immensely. 
+
+This has been a massive learning experience, and I'm sharing it here to get feedback from the community.
+
+**What My Project Does:**
+
+I built AvA (Avakin), a desktop AI assistant designed to help developers understand and work with codebases locally. It integrates with LLMs like Llama 3 or CodeLlama (via Ollama) and features a project-specific Retrieval-Augmented Generation (RAG) pipeline. This allows you to ask questions about your private code and get answers without your data ever leaving your machine. The goal is to make learning a new, complex repository faster and more intuitive. 
+
+**Target Audience :**
+
+This tool is aimed at solo developers, students, or anyone on a small team who wants to understand a new codebase without relying on cloud based services. It's built for users who are concerned about the privacy of their proprietary code and prefer to use local, self-hosted AI models.
+
+Comparison to Alternatives Unlike cloud-based tools like GitHub Copilot or direct use of ChatGPT, AvA is \*\*local-first and privacy-focused\*\*. Your code, your vector database, and the AI model can all run entirely on your machine. While editors like Cursor are excellent, AvA's goal is to provide a standalone, open-source PySide6 framework that is easy to understand and extend. 
+
+\* \*\*GitHub Repo:\*\* [https://github.com/carpsesdema/AvA\_Kintsugi](https://github.com/carpsesdema/AvA_Kintsugi)
+
+\* \*\*Download & Install:\*\* You can try it yourself via the installer on the GitHub Releases page  [https://github.com/carpsesdema/AvA\_Kintsugi/releases](https://github.com/carpsesdema/AvA_Kintsugi/releases)
+
+**\*\*The Tech Stack:\*\***
+
+\* \*\*GUI:\*\* PySide6
+
+\* \*\*AI Backend:\*\* Modular system for local LLMs (via Ollama) and cloud models.
+
+\* \*\*RAG Pipeline:\*\* FAISS for the vector store and \`sentence-transformers\` for embeddings.
+
+\* \*\*Distribution:\*\* I compiled it into a standalone executable using Nuitka, which was a huge challenge in itself.
+
+**\*\*Biggest Challenge & What I Learned:\*\***
+
+Honestly, just getting this thing to bundle into a distributable \`.exe\` was a brutal, multi-day struggle. I learned a ton about how Python's import system works under the hood and had to refactor a large part of the application to resolve hidden dependency conflicts from the AI libraries. It was frustrating, but a great lesson in what it takes to ship a real-world application.
+
+Getting async processes correctly firing in the right order was really challenging as well... The event bus helped but still.
+
+I'd love to hear any thoughts or feedback you have, either on the project itself or the code."
+[Blog] Understand how Python works using daily koans,73,1loq064,https://www.reddit.com/r/Python/comments/1loq064/blog_understand_how_python_works_using_daily_koans/,14,1751335824.0,"When I first started using Python, I did what everyone does: followed tutorials, bookmarked cheat sheets, and tried to memorize as much as I could. For a while, it worked. At least on the surface.
+
+But even after months of writing code, something felt off.  
+I knew how to *use* the language, but I didn’t really *understand* it.
+
+Then I stumbled across a line of code that confused me:
+
+    [] == False  # False
+    if []:       # Also False
+
+I spent longer than I care to admit just staring at it.  
+And yet that little puzzle taught me more about how Python handles truth, emptiness, and logic than any blog post ever did.
+
+That was the first time I really slowed down.  
+Not to build something big, but to sit with something small. Something puzzling. And that changed the way I learn.
+
+So I started a little experiment:  
+Each day, I write or find a short Python koan, a code snippet that seems simple, but carries a deeper lesson. Then I unpack it. What it looks like on the surface. Why it works the way it does. And how it teaches you to think more pythonic.
+
+I turned it into a daily newsletter because I figured someone else might want this too.
+
+It’s free, light to read, and you can check it out here if that sounds like your kind of thing: [https://pythonkoans.substack.com/p/koan-1-the-empty-path](https://pythonkoans.substack.com/p/koan-1-the-empty-path)
+
+And if not, I hope this post encourages you to slow down the next time Python surprises you. That’s usually where the real learning starts."
+What’s your approach to organizing Python projects for readability and scalability?,38,1lotna6,https://www.reddit.com/r/Python/comments/1lotna6/whats_your_approach_to_organizing_python_projects/,24,1751347811.0,"I'm working on improving my Python project structure for better readability and scalability. Any tips on organizing files, folders, modules, or dependencies?"
+Built a CLI tool that bridges multiple Python backtesting libraries to live APIs!,8,1lp470w,https://www.reddit.com/r/Python/comments/1lp470w/built_a_cli_tool_that_bridges_multiple_python/,0,1751382710.0,"I just released my first significant open-source project, tackling an interesting architectural challenge. Different Python backtesting libraries (**zipline, backtrader, vectorbt, backtesting.py**) all have completely different APIs, but deploying strategies to live trading means rewriting everything from scratch.
+
+So I built StrateQueue, a universal adapter between any backtesting library and live broker APIs. The technical challenge was normalizing signals across multiple library architectures and creating a clean plugin system for broker integrations, achieving \~11ms signal processing latency.
+
+The CLI makes deployment dead simple:
+
+        stratequeue deploy \
+          --strategy examples/strategies/sma.py \
+          --symbol AAPL \
+          --timeframe 1m
+
+[DEMO](https://www.reddit.com/media?url=https%3A%2F%2Fpreview.redd.it%2Fcli-tool-zipline-backtrader-vectorbt-alpaca-ibkr-in-10-v0-uyukppv3l2af1.gif%3Fwidth%3D1080%26crop%3Dsmart%26auto%3Dwebp%26s%3D09cc498e748b81ace7659771a5e48f6636ce4367)
+
+Since this is my first major open source contribution, I'd love feedback on code organization, API design, and Python best practices. The adapter pattern implementation was particularly fun to solve.
+
+If you're interested in fintech applications with Python, I'd welcome contributors to help expand broker integrations or optimize performance. Even if you're just curious about the architecture, a GitHub star would help with visibility!
+
+[GITHUB](https://github.com/StrateQueue/StrateQueue)
+
+[DOCS](https://www.stratequeue.com/docs)
+
+TL;DR:
+
+What my project does: StrateQueue is the fastest way from backtest to live trading
+
+Target Audience: Quants
+
+Comparison: First project like this
+
+"
+Tuple type hints?,21,1loubmy,https://www.reddit.com/r/Python/comments/1loubmy/tuple_type_hints/,18,1751350380.0,"It feels to me like it would be nice to type hint tuples with parentheses (eg “def f() -> (int, str): …” over {T|t}uple[int, str]). 
+
+What would be arguments against proposing/doing this? (I did not find a PEP for this)"
+ViewORM for SQLAlchemy,11,1loweun,https://www.reddit.com/r/Python/comments/1loweun/vieworm_for_sqlalchemy/,1,1751358812.0,"Hello, Python community! Here is a package I developed for some projects I work at, and hopefully it might be helpful to a broad audience of developers: **SQLAlchemy-ViewORM** for managing simple and materialized views in ORM manner with any DB support.
+
+* [PyPI](https://pypi.org/project/SQLAlchemy-ViewORM/)
+* [Documentation](https://sqlalchemy-vieworm.readthedocs.io/en/latest/)
+* [GitHub](https://github.com/AivanF/SQLAlchemy-ViewORM)
+
+# What My Project Does
+
+Features:
+
+* **Standard views**: Traditional simple SQL views that execute their query on each access.
+* **Materialized views**: Views that store their results physically for faster access.
+* **Simulated views**: For databases that don’t support materialized views, they can be mocked with tables or simple views. Actually, *this was the primary reason of the project* – to simplify quick tests with SQLite while deployments use Postgres. The lib allows to control the way of simulation.
+* **Views lifecycle control**: create, refresh or delete the views all together or each one separately, depending on your project / business needs.
+* **ORM interface, dialect-specific queries**: views can be defined as a static SQL/ORM query, or as a function that takes DB dialect and returns a `selectable`. After creation, the views can be used as ordinary tables.
+
+What it lacks:
+
+* **Migrations**, Alembic support. For now, migrations related to views should be handled manually or by custom scripts. In case the project receives interest, I (or new contributors) will solve this issue.
+
+# Comparison
+
+Before creating this project, I've reviewed and tried to apply several libs and articles:
+
+* [https://github.com/sqlalchemy/sqlalchemy/wiki/Views](https://github.com/sqlalchemy/sqlalchemy/wiki/Views)
+* [https://github.com/jeffwidman/sqlalchemy-postgresql-materialized-views](https://github.com/jeffwidman/sqlalchemy-postgresql-materialized-views)
+* [https://github.com/kvesteri/sqlalchemy-utils/blob/master/sqlalchemy\_utils/view.py](https://github.com/kvesteri/sqlalchemy-utils/blob/master/sqlalchemy_utils/view.py)
+* [https://bakkenbaeck.com/tech/dynamic-materialized-views-in-sqlalchemy](https://bakkenbaeck.com/tech/dynamic-materialized-views-in-sqlalchemy)
+* [https://pypi.org/project/sqlalchemy-views/](https://pypi.org/project/sqlalchemy-views/)
+
+But all of these lacked some of the features described above that were needed by the services I work with. Especially because of the mapping each view action into a single `DDLElement` == single SQL statement, which doesn't work well for mocked materialised views; ViewORM, in contrast, provides flexible generators.
+
+# Target Audience
+
+The project intended for colleagues, to develop backend services with a need of views usage and management. The package is already used in a couple of relatively small, yet production services. It might be considered as a public beta-test now. Usage feedback and contributions are welcome.
+
+In the repo and docs you can find several examples, including async **FastAPI** integration with SQLite and PostgreSQL support.
+
+PS: in case I've reinvented the wheel, and there is a better approach I've passed, let me know, I'm open to critics 😁"
+Python script to batch-download YouTube playlists in any audio format/bitrate (w/ metadata support),14,1lot7nn,https://www.reddit.com/r/Python/comments/1lot7nn/python_script_to_batchdownload_youtube_playlists/,0,1751346222.0,"I couldn’t find a reliable tool that lets me download **YouTube playlists in audio format** exactly how I wanted (for car listening, offline use, etc.), so I built my own script using `yt-dlp`.
+
+# 🔧 Features:
+
+* Download **entire playlists** in **any audio format**: `.mp3`, `.m4a`, `.wav`
+* Set **any bitrate**: 128 / 192 / 256  kbps or max available
+* **Batch download** multiple playlists at once
+* **Embed metadata** (artist, title, album, etc.) automatically
+
+It’s written in Python, simple to use, and fully open-source.
+
+Feel free use it ,if you need it
+
+📽️ \[YouTube tutorial link\] -https://youtu.be/HVd4rXc958Q  
+💻 \[GitHub repo link\] - [https://github.com/dheerajv1/AutoYT-Audio](https://github.com/dheerajv1/AutoYT-Audio)"
+Want Funding to Build Your Dream Project? $300K Hackathon Open Now (AI/Web3),0,1lplen5,https://www.reddit.com/r/Python/comments/1lplen5/want_funding_to_build_your_dream_project_300k/,6,1751426146.0,"For any Devs we know here ... This starts July 1st This is huge. The biggest ICP hackathon from 2021.
+
+🔥 $300K in prizes. Global hackathon (World Computer Hacker League) AI, blockchain, bold builds, this is your shot.
+
+🏆 Win prizes 🚀 Get grants 💡 Join Quantum Leap Labs Venture Studio
+
+🌍 Open worldwide, register via ICP HUB Canada & US. Let’s buidl!! 🔗 Info + sign up:
+
+https://wchl25.worldcomputer.com?utm_source=ca_ambassadors"
+Building and Sharing a Practical Python Security Checklist,1,1loxsec,https://www.reddit.com/r/Python/comments/1loxsec/building_and_sharing_a_practical_python_security/,8,1751364330.0,"Inspired by a feature in Coding Magazine, I’m building and sharing this practical Python security checklist to support my coding. Some functions and tools introduce subtle security weaknesses when used without caution, and this checklist reviews common risk areas as a starting point, each illustrated with an unsafe example followed by a secure alternative. It's a beginning; Let me know if there’s anything important I’ve missed or should dive into next.
+
+[Full checklist here](https://medium.com/@adrien.d_84254/building-and-sharing-a-practical-python-security-checklist-d102e7e8cd02)
+
+Also,any idea on where I could share this online to benefit the community? I intend to keep it corrected and growing.
+
+This list include : 
+
+* Dynamic Code Execution with eval and exec
+* String Formatting and Injection
+* Object Serialization with pickle
+* Rendering HTML in Templates (XSS)
+* Executing Shell Commands
+* Password Hashing
+* HTTP Requests
+* Safe File Handling
+* Protecting Against XSS in Plain Python
+* Parameterized Database Queries
+* Managing Secrets and Configuration
+* Cryptographically Secure Randomness
+* \[Additional considered topic\] Input validation and schema enforcement (e.g., using Pydantic or Marshmallow)
+* \[Additional considered topic\] Dependency and supply chain security (e.g., virtual environments, lock files, package signing)
+* \[Additional considered topic\] Secure logging practices (avoiding sensitive data leakage)
+* \[Additional considered topic\] Rate limiting and denial-of-service mitigation
+* \[Additional considered topic\] Concurrency safety (race conditions, thread/process synchronization)
+* \[Additional considered topic\] SSL/TLS certificate verification and secure HTTP configuration
+* \[Additional considered topic\] Secure HTTP headers (HSTS, CSP, CORS)
+* \[Additional considered topic\] Safe subprocess permission and environment management (dropping privileges, chroot)
+* \[Additional considered topic\] Secure cookie and session handling (CSRF protection, secure flags)"
+Ciw Package Video Tutorials,1,1lp4fky,https://www.reddit.com/r/Python/comments/1lp4fky/ciw_package_video_tutorials/,0,1751383247.0,"I have recently started producing tutorial videos posted on YT for the Ciw Python package. So far I have produced 21 videos and I feel like continuing. Here is the playlist.
+
+[https://www.youtube.com/playlist?list=PLduYMAFW6YatFvymP\_dCddjGCB7WBvzp\_](https://www.youtube.com/playlist?list=PLduYMAFW6YatFvymP_dCddjGCB7WBvzp_)
+
+
+
+\---
+
+For now I am focusing on covering the official documentation for Ciw, but after that I'm going to spread out to other topics around the Ciw package. Any suggestions on things you would like to see?
+
+  
+\---
+
+I am often busy with work, family, and other things, so the effort put into the production value is not massive. I am trying not to set the bar too high so that I don't get bogged down with learning 'all the things' up front, but I also know that I should improve over time. I have not been spending more than a few minutes preparing for each video, and mostly go through smaller topics so I don't need to prepare a script. Any feedback on low-hanging fruit to improve the quality of the videos is appreciated.
+
+  
+\---
+
+  
+Are there any other topics more broadly in the areas of statistics, queueing theory, machine learning, data science, or simulation (e.g. discrete event simulation) that you would like to see YT videos covering?"
+An open-source alternative to Yahoo Finance's market data python APIs with higher reliability.,53,1loaj1q,https://www.reddit.com/r/Python/comments/1loaj1q/an_opensource_alternative_to_yahoo_finances/,20,1751297421.0,"""Hey folks! 👋
+
+I've been working on this Python API called[ defeatbeta-api](https://github.com/defeat-beta/defeatbeta-api) that some of you might find useful. It's like yfinance but without rate limits and with some extra goodies:
+
+• Earnings call transcripts (super helpful for sentiment analysis)  
+• Yahoo stock news contents  
+• Granular revenue data (by segment/geography)  
+• All the usual yahoo finance market data stuff
+
+I built it because I kept hitting yfinance's limits and needed more complete data. It's been working well for my own trading strategies - thought others might want to try it too.
+
+Happy to answer any questions or take feature requests!"""
+You can launch almost any idea as Python website in prod with nothing by standard Python,0,1lpjyhn,https://www.reddit.com/r/Python/comments/1lpjyhn/you_can_launch_almost_any_idea_as_python_website/,9,1751421690.0,"No Django, Flask, FastAPI, No React - No frameworks at all \
+\
+No setup, No middleware, No Reverse Proxy \
+\
+The database is JSON files \
+\
+The truth is [`main.py`](http://main.py) is all you need\
+until your idea experiences about a 1000 users, `python`  to run it in production. \
+That’s my point here.
+
+If you don’t have any ideas what to develop - start with your personal/portfolio/developer website. [Here’s one](https://github.com/bedbad/7-min-portfolio-site) developed in 7 mins, even with /admin side for complete content control, [Here](https://bedbad.net/) it is running in production.
+
+You can develop an idea in python from scratch and launch it on production domain in less then 10 minutes  
+Test it. It’s 10 minutes maybe a few times for few ideas attempts. Share them, even in comments. Let’s demonstrating in this argument that the least complexity from the start to the end user always wins, and it’s more so not less so for beginners.
+
+You don’t need to know anything, any framework or any complicated or in-depth python to finish something that is actually useful. *Then* you start really developing and learning based on what your user wants next for his use. That’s the best way to learn.
+
+\---  
+Here’s little step-by-step as guidance for those who haven’t yet experienced it:  
+Generation of initial product/site/app source currently is done mostly with LLMs; Excuse the cringe  from “vibecoding advice”. The speed of work progress with LLMs mostly depends on
+
+1. The design choices, by far. Fastest producing choices are those that limit the design to the simplest imaginable single function that your task
+2. Choice of models, choice
+3. Speed of LLM output and speed of your input
+
+Use voice transcriber based on Whisper(Spokenly, etc). You will note the speedup immediately. Separate design from development. Use pro versions of models for design(perplexity.ai) to get dev step prompts, and pro version of developer agent env(Cursor) to implement them.
+
+First, prompt the design agent with ""*you're an expert python backend developer ...tasked with designing simple possible website satisfying the ... using only python aiohttp and managing all database-suitable content in JSON files; use pyproject.toml only for configuration organize entire design in steps with 1 concrete prompt per step for another developer agent""*
+
+Review the steps till the design presents the most simple function for your project task purpose  
+This takes about 1-2 minutes
+
+Develop without backthought for now. Use the steps' prompts on top code LLM(Claude) controlling localhost run after every prompt that has sensible returns. It shouldn’t take more then 4-5 minutes, actually nowadays, otherwise you’re complicating it
+
+Purchase domain (I recommend already having account with payment setup for bulk cheap domains, cheapdomains.com) and [point](https://render.com/docs/configure-other-dns) the ns records to the platform you launching it from (render.com)
+
+Set a git production branch on your website remote repo(github.com), push your website to it and [deploy it on your launching platform](https://render.com/docs/your-first-deploy) simply specifying `pip install .` for setup and `python main.py`for running. Launch, share it with some people to see how your idea can be even useful. \*Then\* start actually developing it based on what you learned on your actual idea instantiation from the people, be it website or app.
+
+Here, boilerplate [personal developer website](https://github.com/bedbad/7-min-portfolio-site) developed in 7 mins total.
+
+If you work lonely and no one can take a look on it to give you immideate worthy feedback - put tracking JS in your base template(LLM will come and generate it, probably with Jinja2) from a tracker such as [mouseflow.com](http://mouseflow.com) on a free trial - it will give you a heatmap of how user interact with your website when they open it."
+How is PySide6 as a GUI development option?,49,1lo9132,https://www.reddit.com/r/Python/comments/1lo9132/how_is_pyside6_as_a_gui_development_option/,33,1751293881.0,"I've been looking into native GUI app development, and PySide6 came up—does anyone have experience with it?
+
+Also, is building GUI apps with Python kind of a bad idea in general?"
+toycrypto: Some toy cryptographic modules and related tools,10,1loighk,https://www.reddit.com/r/Python/comments/1loighk/toycrypto_some_toy_cryptographic_modules_and/,3,1751315656.0,"### toycrypto
+
+Some toy cryptographic modules and related tools that should never, ever be used for anything other than demonstation purposes.
+
+Python's ""one `int` to rule them all"" makes it very attractive for illustrating cryptographic notions and computations.
+
+- [PyPi](https://pypi.org/project/toycrypto/)
+- [Github](https://github.com/jpgoldberg/toy-crypto-math)
+- [Documentation](https://jpgoldberg.github.io/toy-crypto-math/)
+
+### What My Project Does
+
+[toycrypto](https://pypi.org/project/toycrypto/) is a collection of modules which can be used to illustrate or teach about basic cryptographic concepts.
+It has few third party dependencies and no *required* dependencies on anything that would prevent its use in a pure Python environment.
+
+It started out as a place for me to collect various things I had written in Jupyter notebooks or in teaching notes.
+
+A few examples:
+
+- The oldest (and ugliest) code in the project is the [Elliptic Curve module](https://jpgoldberg.github.io/toy-crypto-math/ec.html), which I had originally created to so that I could talk about the double_and_add algorithm (and its vulnerabilites to side channels).
+
+- The [birthday problem module](https://jpgoldberg.github.io/toy-crypto-math/birthday.html) because I needed something that would efficiently provide reasonable approximations for the kinds of numbers and probability I wanted to talk about.
+
+- A more recent module is the [security games](https://jpgoldberg.github.io/toy-crypto-math/games.html),
+which can be used to illustrate things like IND-CPA.
+
+- The [number theory module](https://jpgoldberg.github.io/toy-crypto-math/nt.html#module-toy_crypto.nt) started out to just give me pure Python utilities that I would otherwise have used Sage for. It now is is mostly just wrappers for things that were introduced in Python 3.8 and the [primefac](https://pypi.org/project/primefac/) package (the only required thrid party dependency.
+
+- The [Sieve of Eratosthenes](https://jpgoldberg.github.io/toy-crypto-math/sieve.html) has three implementation of the sieve for [reasons](https://jpgoldberg.github.io/toy-crypto-math/sieve.html#why-three-separate-implementations). Note that not all reasons are good reasons, but they are reasons.
+
+- Most recently, I added [RSA-OAEP](file:///Users/jeffrey/src/github.com/jpgoldberg/toy-crypto-math/docs/build/html/rsa.html#oaep-utilities) to the [RSA module](https://jpgoldberg.github.io/toy-crypto-math/rsa.html)
+
+### Target Audience
+
+My primary use of this (beyond just learning through the process of creating it) is to give me a resource I could use in lecture notes, blog posts, and so on to illustrate certain Cryptography releted concepts. I don't know if others will find other uses.
+
+But do not it for security purposes. As every page of the documentation says
+
+> **Danger** Nothing here should be used for any security purposes.
+>
+> - If you need cryptographic tools in a Python environment use [pyca](https://cryptography.io/en/latest/).
+> - If you need efficient and reliable abstract math utilities in a Python-like environment consider using [SageMath](https://www.sagemath.org/).
+
+### Comparison
+
+#### Comparison to toys
+
+There are zillions of toy cryptographic. So let me just list things that I believe will distinguish this from many others.
+
+- `toycrypto`'s name, root module name, and documentation make it very clear that this should not be used for security purposes.
+
+- `toycrypto` is fully type annotated, passing `mypy --strict`
+
+- `toycrypto` has ots of documentation, with example code and doctests. I went to battle with Sphinx. I did not win all of those battles, but there are docs. Documentation sometimes includes explanations of why things are designed as they are.
+
+- `toycrypto` has lots of differnt things in one place (well different submodules). This may or may not be an advantage, particularly if you you looking for something tighly focused on only one of the things that my package does.
+
+- Ocassional snarky code comments and docstrings.
+
+- `pytest`, `mypy`, `ruff`, `doctests`, and documentation build all run in CI, all using `uv`. This isn't a promise that I will continue to develop and maintain this, but it shows that I have constructed infrastructure for development and maintainence.
+
+#### Comparison to non-toys
+
+I've already mentioned [pyca](pyca) and [SageMath](https://www.sagemath.org/) as the kinds of things to use if you need security or rich mathemematical exploration in Python-like environments.
+
+- [primefac]((https://pypi.org/project/primefac/)) is really nice pure Python package for dealing with prime numbers.
+
+   In a much earlier version of my stuff, I had attempted to do what is done  there, but my implementations were pretty crappy. Once I discovered primefac, I chose to just wrap it.
+
+- [pkcs1](https://pypi.org/project/pkcs1/) has pure Python RSA-OAEP that works more tightly to (an obsoleted, but still relevant) standards.
+
+    - It has the advantage (to some) of being able to run with ancient versions of Python, but that means that it also doesn't take advantage of things in modern Python. 
+
+    - It's standards-complience makes it interoperable with things out in the world. I feel that that is a problem because it invites such usage, while you really don't want to do real cryptography in pure Python.
+
+    - I do want to acknowledge it because I used it in tests for debugging my own OAEP code.
+
+
+There are probably others that I should explicitly compare with. Please recommend things that I should look at for comparison, and I will update this posting.
+
+"
+Practice resources,5,1lonjvb,https://www.reddit.com/r/Python/comments/1lonjvb/practice_resources/,2,1751328598.0,"Recently complete watching “code bro” YouTube python learning 
+And now I wanted to practice on those skill. Do you have any recommended researchers to practice from it?
+
+I tried  “code war” and i think the Questions there is a little off ( some of the question there are  weird and I don't think I'll ever run into them again)
+
+I know “leet code” is more difficult question aiming for interview question but maybe I should learn from them"
+"AI Job Applier/Finder agent(kinda, not really) according to your CV over 65k or 70k+ companies",0,1lpatl1,https://www.reddit.com/r/Python/comments/1lpatl1/ai_job_applierfinder_agentkinda_not_really/,1,1751397767.0,"Does anyone remember that in the last 1 to 3 months (April to June), someone posted on reddit (in one or more of these groups: [r/ArtificialInteligence](https://www.reddit.com/r/ArtificialInteligence/) , [r/deeplearning](https://www.reddit.com/r/deeplearning/) , [r/GetEmployed](https://www.reddit.com/r/GetEmployed/) , [r/learnmachinelearning](https://www.reddit.com/r/learnmachinelearning/) , [r/MachineLearning](https://www.reddit.com/r/MachineLearning/) , [r/MachineLearningJobs](https://www.reddit.com/r/MachineLearningJobs/) , [r/Python](https://www.reddit.com/r/Python/) , [r/resumes](https://www.reddit.com/r/resumes/); I can't remember properly which one) about how they sort of automated their job finding and applying process ? Precisely, it was about an AI script he/she wrote for finding the right and matching jobs according to your resume/CV. It mentioned that since it is tedious to look at careers page of each company so, it kind of works for over 70k+ or 65k+ companies. They also provided a demo or similar thing in a hyperlink format with the alias word ""here"". I hope whoever remembers or ever the redditor who indeed posted it finds it and comments. I hope people will understand and this will help each other as the market is tough right now.
+
+Thanks in Anticipation!
+
+Best,
+
+R."
+Tuesday Daily Thread: Advanced questions,3,1loncju,https://www.reddit.com/r/Python/comments/1loncju/tuesday_daily_thread_advanced_questions/,0,1751328029.0,"# Weekly Wednesday Thread: Advanced Questions 🐍
+
+Dive deep into Python with our Advanced Questions thread! This space is reserved for questions about more advanced Python topics, frameworks, and best practices.
+
+## How it Works:
+
+1. **Ask Away**: Post your advanced Python questions here.
+2. **Expert Insights**: Get answers from experienced developers.
+3. **Resource Pool**: Share or discover tutorials, articles, and tips.
+
+## Guidelines:
+
+* This thread is for **advanced questions only**. Beginner questions are welcome in our [Daily Beginner Thread](#daily-beginner-thread-link) every Thursday.
+* Questions that are not advanced may be removed and redirected to the appropriate thread.
+
+## Recommended Resources:
+
+* If you don't receive a response, consider exploring r/LearnPython or join the [Python Discord Server](https://discord.gg/python) for quicker assistance.
+
+## Example Questions:
+
+1. **How can you implement a custom memory allocator in Python?**
+2. **What are the best practices for optimizing Cython code for heavy numerical computations?**
+3. **How do you set up a multi-threaded architecture using Python's Global Interpreter Lock (GIL)?**
+4. **Can you explain the intricacies of metaclasses and how they influence object-oriented design in Python?**
+5. **How would you go about implementing a distributed task queue using Celery and RabbitMQ?**
+6. **What are some advanced use-cases for Python's decorators?**
+7. **How can you achieve real-time data streaming in Python with WebSockets?**
+8. **What are the performance implications of using native Python data structures vs NumPy arrays for large-scale data?**
+9. **Best practices for securing a Flask (or similar) REST API with OAuth 2.0?**
+10. **What are the best practices for using Python in a microservices architecture? (..and more generally, should I even use microservices?)**
+
+Let's deepen our Python knowledge together. Happy coding! 🌟"
+🧰 [Python Package] Ciw: Discrete Event Simulation for Queueing Networks (with r/CiwPython Community,2,1lomczs,https://www.reddit.com/r/Python/comments/1lomczs/python_package_ciw_discrete_event_simulation_for/,0,1751325318.0,"Hi all,
+
+If you're working on or interested in **discrete event simulation**, **operations research**, or **queueing networks** in Python, you might want to check out [**Ciw**](https://github.com/CiwPython/Ciw) — a simulation library designed for modeling open queueing systems.
+
+Ciw supports:
+
+* Networks of queues with multiple server types
+* Multiple customer classes with dynamic class switching
+* Type I blocking, baulking, and reneging
+* Priorities, service schedules, batch arrivals, slotted services
+* Deadlock detection and other advanced features
+
+It's used in academic research and teaching, and is great for modeling real-world systems like call centers, healthcare services, and more.
+
+I have launched a new community at [r/CiwPython](https://www.reddit.com/r/CiwPython) for people using the library — for questions, model sharing, feature discussions, etc. If that’s up your alley, we’d love to have you join in.
+
+Cheers!"
+Best Way to Split Scientific PDF Text into Paragraphs?,12,1lo60gv,https://www.reddit.com/r/Python/comments/1lo60gv/best_way_to_split_scientific_pdf_text_into/,12,1751285827.0,"Hi everyone,
+
+I'm working on processing scientific articles (mostly IEEE-style) and need to split the extracted text into paragraphs reliably.
+
+Simple rules like \\n or \\n\\n often give poor results because:
+
+Many PDFs have line breaks at the end of each line, even mid-paragraph.
+
+Paragraph separation isn't consistent.
+
+I'm looking for a better method or tool (free if possible) to segment PDF text into proper paragraphs  
+Any suggestions (libraries methods......) would be appreciated!
+
+"
+Cogeol - align projects with supported Python versions - automated with endoflife.date,8,1lobsxz,https://www.reddit.com/r/Python/comments/1lobsxz/cogeol_align_projects_with_supported_python/,6,1751300345.0,"__Starring the repo and liking/sharing this post is greatly appreciated!__
+
+> __GitHub repository__: https://github.com/open-nudge/cogeol
+
+## What the project does
+
+Hello, `cogeol` is a small tool I have created which allows you to manage Python versions of your projects (usually libraries) by utilizing [cog](https://github.com/nedbat/cog)'s static code generation and [endoflife.data API](https://endoflife.date/).
+
+For example - say you want to always support __three latest latest Python versions__, no more, no less (according to [Scientific Python SPEC0](https://scientific-python.org/specs/spec-0000/)). 
+Currently that would be Python version `3.13`, `3.12` and `3.11`. When `3.14` is released, you would have to move your library manually to `3.14`, `3.13` and `3.12`.
+This is what cogeol automates, see the [usage example](https://github.com/open-nudge/cogeol?tab=readme-ov-file#usage). Also works with other files, see examples in the `README` for more information.
+
+## Target audience
+
+Python developers wanting automated support of multiple Python versions. Mainly library developers, where support of multiple Python versions might be a necessity.
+
+## Comparison
+
+Not too many tools of this kind I've found (already mentioned [cog](https://github.com/nedbat/cog), which one could use to do that, but would be a little more cumbersome).
+
+I have also found [yore](https://github.com/pawamoy/yore) by u/Pawamoy (see [his submission](https://www.reddit.com/r/Python/comments/1jjkzqe/yore_manage_legacy_code_with_comments/)), but it seems to be a little less flexible with its approach when compared to `cog` just using Python code in comments.
+
+## Additional resources
+
+Stay up to date with new tools from opennudge:
+
+- __GitHub org__: https://github.com/open-nudge
+- __LinkedIn__: https://www.linkedin.com/company/opennudge
+- __BlueSky__: https://bsky.app/profile/opennudge.com
+
+You may also want to take a look at: https://github.com/open-nudge/opentemplate which automated large part of the workflow used to develop and release this project.
+
+Any questions/feedback is appreciated, thanks in advance for checking out!"
+Molabel: add labels to data from your Python notebook,2,1loacvj,https://www.reddit.com/r/Python/comments/1loacvj/molabel_add_labels_to_data_from_your_python/,0,1751297008.0,"**What my project does:**
+
+When you're working with data, you typically want to do evals/add annotations to data. Especially when there is an LLM involved. So we made a widget that allows you to define a rendered for your data and we pick up the examples from there. You can add binary labels but are also free to use free text. 
+
+Bonus: browsers have a gamepad/voice API these days, so we made a widget that combines it all into an experience that you can make custom. Use keyboard shortcuts, your mouse, your gampad or your voice to add the labels. 
+
+**Target audience:**
+
+It's mainly meant for ML/AI people that like to work with Python notebooks. The main target for the widget is marimo but because it's made with anywidget it should also work in Jupyter/VSCode/colab/databricks/where-ever.
+
+**Comparison:**  
+The main benefit of this library is that you only need a Python notebook to get started.   
+  
+If you're keen to see a demo, check the YT video here: [https://youtu.be/fYlsew5PGag](https://youtu.be/fYlsew5PGag)  
+If you have a gamepad in your hand, you can also try it out on Github Pages on the project repository here: [https://github.com/koaning/molabel](https://github.com/koaning/molabel)"
+Is anybody interested in testing out my small python app ? For free ?,0,1loun6m,https://www.reddit.com/r/Python/comments/1loun6m/is_anybody_interested_in_testing_out_my_small/,21,1751351621.0,"What my project does: 
+can search for items in eBay and let you always keep on track if a new offer appeared! You can also look for auctions which lasts for just some minutes and where the price compared to other items is really small. 
+Comparison to other apps:
+The special thing about my App is that you can handle it from cmd no complex UI clear questions and fast , straightforward without hours of setting everything up correctly! It even scrapes the distance between you and the buyer ! 
+Target audience: 
+The app is for people who want to save money it is a real app.
+
+https://github.com/Tim328/TradePirate.git here is a short Link to my app . IMPORTANT NOTE: DO NOT SELL MY APP / PUBLISH IT WITHOUT MY PERMISSION VERY IMPORTANT IS ALSO THAT YOUR SEARCHES ARE ANNONYMIUSLY SEND TO ME FOR TEST USAGES ONLY BY USING MY APP YOU AUTOMATICALLY AGREE THAT YOUR USERNAME AND SEARCH IS AUTOMATICALLY SEND TO ME ! Please test out my small app and tell me what can I do better ? Which features do you would like to see there ?"
