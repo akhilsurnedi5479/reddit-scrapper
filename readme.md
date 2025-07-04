@@ -27,7 +27,7 @@ python topic_classifier.py
 ## 📁 Cache
 The `cache.json` file stores the latest posts and topics for fast access.\
 
-### Made this completely using gpt4o
+`Made this completely using gpt4o`
 
 
 
